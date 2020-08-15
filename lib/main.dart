@@ -24,50 +24,76 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Stack(
+      alignment: const Alignment(0.6, 0.6),
       children: <Widget>[
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Center(
-              child: Text(
-                'This is where the question text will go.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+
+              child: CustomPaint(
+                painter: CurvePainter(),
               ),
             ),
-          ),
+          ],
         ),
-        Expanded(
-          flex: 2,
-          child: CustomPaint(
-            painter: CurvePainter(),
-            child: Container(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      spreadRadius: 5,
+                      blurRadius: 5,
+                      offset: Offset(0, 5), // changes position of shadow
+                    ),
+                  ],
+                ),
+                alignment: AlignmentDirectional.center,
+                width: double.infinity,
+                height: 450,
+
+                child: Text(
+                  'This is where the quest.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 180,
+                    height: 100,
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(500),
-                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       textColor: Colors.white,
-                      color: Color(0xff6AEB6A),
+                      color: Color(0xff10A896),
                       child: Text(
                         'True',
                         style: TextStyle(
+                          fontWeight: FontWeight.bold,
                           color: Colors.white,
-                          fontSize: 20.0,
+                          fontSize: 22.0,
                         ),
                       ),
                       onPressed: () {
@@ -76,20 +102,21 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 180,
+                    height: 100,
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(500),
-                          ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       color: Color(0xffEB6A70),
                       child: Text(
                         'False',
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
@@ -100,11 +127,10 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                 ),
               ],
-              //TODO: Add a Row here as your score keeper
             ),
-            ),
-          ),
+          ],
         ),
+
       ],
     );
   }
@@ -114,16 +140,16 @@ class CurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
-    paint.color = Color(0xffE7E9EB);
+    paint.color = Color(0xffEEEFF6);
     paint.style = PaintingStyle.fill;
 
     var path = Path();
 
-    path.moveTo(0, size.height * 0.3);
-    path.quadraticBezierTo(size.width * 0.5, size.height * -0.48,
-        size.width * 1.0, size.height * 0.3);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
+    path.moveTo(0, size.height * 0.6);
+    path.quadraticBezierTo(size.width * 0.5, size.height * 0.5,
+        size.width * 1.0, size.height * 0.6);
+    path.lineTo(size.width, size.height+100);
+    path.lineTo(0, size.height+100);
 
     canvas.drawPath(path, paint);
   }
