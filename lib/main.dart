@@ -22,6 +22,14 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.',
+  ];
+  int counter = 0;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -32,7 +40,6 @@ class _QuizPageState extends State<QuizPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-
               child: CustomPaint(
                 painter: CurvePainter(),
               ),
@@ -42,7 +49,6 @@ class _QuizPageState extends State<QuizPage> {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(20.0),
@@ -61,9 +67,8 @@ class _QuizPageState extends State<QuizPage> {
                 alignment: AlignmentDirectional.center,
                 width: double.infinity,
                 height: 450,
-
                 child: Text(
-                  'This is where the quest.',
+                  questions[counter],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 25.0,
@@ -72,7 +77,6 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                 ),
               ),
-
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -81,7 +85,7 @@ class _QuizPageState extends State<QuizPage> {
                   padding: EdgeInsets.all(10),
                   child: SizedBox(
                     width: 180,
-                    height: 100,
+                    height: 60,
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -97,7 +101,16 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                       onPressed: () {
-                        //The user picked true.
+                        setState(() {
+                          scoreKeeper.add(
+                            Icon(
+                              Icons.check,
+                              color: Colors.green,
+                              size: 30,
+                            ),
+                          );
+                          counter++;
+                        });
                       },
                     ),
                   ),
@@ -106,7 +119,7 @@ class _QuizPageState extends State<QuizPage> {
                   padding: EdgeInsets.all(10),
                   child: SizedBox(
                     width: 180,
-                    height: 100,
+                    height: 60,
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -121,16 +134,27 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                       onPressed: () {
-                        //The user picked false.
+                        setState(() {
+                          scoreKeeper.add(
+                            Icon(
+                              Icons.close,
+                              color: Colors.red,
+                              size: 30,
+                            ),
+                          );
+                          counter++;
+                        });
                       },
                     ),
                   ),
                 ),
               ],
             ),
+            Row(
+              children: scoreKeeper,
+            )
           ],
         ),
-
       ],
     );
   }
@@ -148,8 +172,8 @@ class CurvePainter extends CustomPainter {
     path.moveTo(0, size.height * 0.6);
     path.quadraticBezierTo(size.width * 0.5, size.height * 0.5,
         size.width * 1.0, size.height * 0.6);
-    path.lineTo(size.width, size.height+100);
-    path.lineTo(0, size.height+100);
+    path.lineTo(size.width, size.height + 100);
+    path.lineTo(0, size.height + 100);
 
     canvas.drawPath(path, paint);
   }
@@ -165,8 +189,3 @@ question1: 'You can lead a cow down stairs but not up stairs.', false,
 question2: 'Approximately one quarter of human bones are in the feet.', true,
 question3: 'A slug\'s blood is green.', true,
 */
-
-//path.quadraticBezierTo(size.width / 4, size.height,
-//size.width / 2, size.height);
-//path.quadraticBezierTo(size.width - (size.width / 4), size.height,
-//size.width, size.height - 40);
